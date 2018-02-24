@@ -10,7 +10,7 @@ import UIKit
 
 class ToDoListViewController: UITableViewController {
     
-    let itemArray = ["Send emails", "Answer emails", "Make calls", "Look at new deals", "Call Brad", "Read book"]
+    var itemArray = ["Send emails", "Answer emails", "Make calls", "Look at new deals", "Call Brad", "Read book"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,37 +53,54 @@ class ToDoListViewController: UITableViewController {
         
     }
     
-//    func alert () {
-//
-//        let alertController = UIAlertController(title: "Password Entry", message: "", preferredStyle: .alert)
-//
-//        // Add a textField to your controller, with a placeholder value & secure entry enabled
-//        alertController.addTextField { textField in
-//            textField.placeholder = "Enter password"
-//            textField.isSecureTextEntry = false
-//            textField.textAlignment = .center
-//        }
-//
-//        // A cancel action
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-//            print("Canelled")
-//        }
-//
-//        // This action handles your confirmation action
-//        let confirmAction = UIAlertAction(title: "OK", style: .default) { _ in
-//            print("Current password value: \(alertController.textFields?.first?.text ?? "None")")
-//        }
-//
-//        // Add the actions, the order here does not matter
-//        alertController.addAction(cancelAction)
-//        alertController.addAction(confirmAction)
-//
-//        // Present to user
-//        present(alertController, animated: true, completion: nil)
-//
-//    }
+    //MARK: add new items
     
+    @IBAction func addNewItems(_ sender: UIBarButtonItem) {
+        
+        alert()
+        
+    }
     
+    //MARK: Alert function when adding new items
+    
+    func alert() {
 
+        let alertController = UIAlertController(title: "Enter new item", message: "", preferredStyle: .alert)
+
+        // Add a textField to your controller, with a placeholder value & secure entry enabled
+        alertController.addTextField { textField in
+            textField.placeholder = "Add new item here"
+            textField.isSecureTextEntry = false
+            textField.textAlignment = .left
+        }
+
+        // A cancel action
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            print("Cancelled")
+        }
+
+        // This action handles your confirmation action
+        let confirmAction = UIAlertAction(title: "Add item", style: .default) { _ in
+            
+            let item = alertController.textFields?.first?.text
+            
+            self.itemArray.append(item!)
+            
+            self.tableView.reloadData()
+            
+            print(self.itemArray)
+           
+            //print("Current password value: \(alertController.textFields?.first?.text ?? "None")")
+        }
+
+        // Add the actions, the order here does not matter
+        alertController.addAction(cancelAction)
+        alertController.addAction(confirmAction)
+
+        // Present to user
+        present(alertController, animated: true, completion: nil)
+
+    }
+ 
 }
 
